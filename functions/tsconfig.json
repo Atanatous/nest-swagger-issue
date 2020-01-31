@@ -10,16 +10,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "paths": {
-      "@app/interfaces": [
-        "libs/interfaces/src"
-      ],
-      "@app/interfaces/*": [
-        "libs/interfaces/src/*"
-      ]
-    }
+    "paths": {}
   },
-  "exclude": [
-    "dist"
-  ]
+  "exclude": ["dist"]
 }
