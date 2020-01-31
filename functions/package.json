@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -17,7 +17,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:generate": "rimraf dist && nest build && typeorm migration:generate -n",
+    "migration:run": "rimraf dist && nest build && typeorm migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^6.10.14",
@@ -25,7 +27,6 @@
     "@nestjs/platform-express": "^6.10.14",
     "@nestjs/swagger": "^4.2.3",
     "@nestjs/typeorm": "^6.2.0",
-    "alias-test-interface": "^1.0.2",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "mysql": "^2.18.1",
@@ -63,12 +64,20 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "@app/interfaces/(.*)": "<rootDir>/libs/interfaces/src/$1",
+      "@app/interfaces": "<rootDir>/libs/interfaces/src"
+    }
   }
 }

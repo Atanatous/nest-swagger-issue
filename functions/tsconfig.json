@@ -9,7 +9,17 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@app/interfaces": [
+        "libs/interfaces/src"
+      ],
+      "@app/interfaces/*": [
+        "libs/interfaces/src/*"
+      ]
+    }
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "dist"
+  ]
 }
